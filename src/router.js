@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/Home'
+import Login from './views/Login'
+import About from './views/About'
+import Goods from './views/goods/Goods' // 商品
+import GoodsList from './views/goods/GoodsList' // 商品列表
+import AddGoods from './views/goods/AddGoods' // 添加商品
+import GoodsCategories from './views/goods/GoodsCategories' // 商品分类
 
 Vue.use(Router)
 
@@ -10,16 +16,37 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: '/home'
+    },
+    {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/home',
       component: Home
     },
     {
+      path: '/goods',
+      component: Goods,
+      children: [
+        {
+          path: '/goodsList',
+          component: GoodsList
+        },
+        {
+          path: '/addGoods',
+          component: AddGoods
+        }, 
+        {
+          path: '/goodsCategories',
+          component: GoodsCategories
+        }
+      ]
+    },
+    {
       path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: About
     }
   ]
 })
